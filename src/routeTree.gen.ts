@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlatformRouteImport } from './routes/_platform'
 import { Route as PlatformDashboardRouteImport } from './routes/_platform.dashboard'
+import { Route as PlatformDigitalTwinRouteImport } from './routes/_platform.digital-twin'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
 const IndexRoute = IndexRouteImport.update({
@@ -28,6 +29,11 @@ const PlatformDashboardRoute = PlatformDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => PlatformRoute,
 } as any)
+const PlatformDigitalTwinRoute = PlatformDigitalTwinRouteImport.update({
+  id: '/digital-twin',
+  path: '/digital-twin',
+  getParentRoute: () => PlatformRoute,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -37,11 +43,13 @@ const ApiChatRoute = ApiChatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof PlatformDashboardRoute
+  '/digital-twin': typeof PlatformDigitalTwinRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof PlatformDashboardRoute
+  '/digital-twin': typeof PlatformDigitalTwinRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesById {
@@ -49,14 +57,21 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_platform': typeof PlatformRouteWithChildren
   '/_platform/dashboard': typeof PlatformDashboardRoute
+  '/_platform/digital-twin': typeof PlatformDigitalTwinRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/api/chat'
+  fullPaths: '/' | '/dashboard' | '/digital-twin' | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/api/chat'
-  id: '__root__' | '/' | '/_platform' | '/_platform/dashboard' | '/api/chat'
+  to: '/' | '/dashboard' | '/digital-twin' | '/api/chat'
+  id:
+    | '__root__'
+    | '/'
+    | '/_platform'
+    | '/_platform/dashboard'
+    | '/_platform/digital-twin'
+    | '/api/chat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,6 +103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformDashboardRouteImport
       parentRoute: typeof PlatformRoute
     }
+    '/_platform/digital-twin': {
+      id: '/_platform/digital-twin'
+      path: '/digital-twin'
+      fullPath: '/digital-twin'
+      preLoaderRoute: typeof PlatformDigitalTwinRouteImport
+      parentRoute: typeof PlatformRoute
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -100,10 +122,12 @@ declare module '@tanstack/react-router' {
 
 interface PlatformRouteChildren {
   PlatformDashboardRoute: typeof PlatformDashboardRoute
+  PlatformDigitalTwinRoute: typeof PlatformDigitalTwinRoute
 }
 
 const PlatformRouteChildren: PlatformRouteChildren = {
   PlatformDashboardRoute: PlatformDashboardRoute,
+  PlatformDigitalTwinRoute: PlatformDigitalTwinRoute,
 }
 
 const PlatformRouteWithChildren = PlatformRoute._addFileChildren(
