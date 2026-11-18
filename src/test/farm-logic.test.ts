@@ -6,9 +6,9 @@ describe("crop health score", () => {
     expect(computePlotHealth({ crop: "Rice", moisture: 80, temperature: 28, diseaseRisk: 0 })).toBe(100);
   });
 
-  it("drops a wheat plot to 43 when soil is 20 points too dry and it is 5°C too hot", () => {
-    // moisture score 20, temp score 50, disease score 80 → 9 + 17.5 + 16 = 42.5 → 43
-    expect(computePlotHealth({ crop: "Wheat", moisture: 25, temperature: 30, diseaseRisk: 0.2 })).toBe(43);
+  it("drops a wheat plot to 37 when soil is 20 points too dry and it is 5°C too hot", () => {
+    // moisture score 0, temp score 37.5, disease score 80 → 0 + 9.375 + 28 = 37.4 → 37
+    expect(computePlotHealth({ crop: "Wheat", moisture: 25, temperature: 30, diseaseRisk: 0.2 })).toBe(37);
   });
 
   it("classifies 75+ as healthy, 50–74 as needs attention, below 50 as critical", () => {

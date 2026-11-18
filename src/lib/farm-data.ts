@@ -38,11 +38,11 @@ export const SAMPLE_FARM = {
 export const SAMPLE_PLOTS: Plot[] = [
   { id: "p1", name: "Plot A1", crop: "Rice", variety: "Indrayani", areaAcres: 4.2, stage: "Vegetative", stageProgress: 46, moisture: 78, temperature: 29, diseaseRisk: 0.12, zone: "Zone 2", sownOn: "2026-07-02", harvestBy: "2026-12-05", grid: { col: "1 / 5", row: "1 / 4" } },
   { id: "p2", name: "Plot A2", crop: "Sugarcane", variety: "Co 86032", areaAcres: 3.8, stage: "Vegetative", stageProgress: 58, moisture: 66, temperature: 31, diseaseRisk: 0.08, zone: "Zone 3", sownOn: "2026-02-14", harvestBy: "2027-02-10", grid: { col: "5 / 9", row: "1 / 3" } },
-  { id: "p3", name: "Plot A3", crop: "Cotton", variety: "Bt NHH-44", areaAcres: 3.5, stage: "Flowering", stageProgress: 64, moisture: 41, temperature: 33, diseaseRisk: 0.28, zone: "Zone 1", issue: "Soil moisture below target; pink bollworm traps show rising counts", sownOn: "2026-06-20", harvestBy: "2026-12-20", grid: { col: "9 / 13", row: "1 / 4" } },
-  { id: "p4", name: "Plot B1", crop: "Tomato", variety: "Arka Rakshak", areaAcres: 2.1, stage: "Fruiting", stageProgress: 72, moisture: 58, temperature: 27, diseaseRisk: 0.55, zone: "Zone 1", issue: "Early blight symptoms reported on lower leaves", sownOn: "2026-08-25", harvestBy: "2026-12-15", grid: { col: "5 / 9", row: "3 / 5" } },
+  { id: "p3", name: "Plot A3", crop: "Cotton", variety: "Bt NHH-44", areaAcres: 3.5, stage: "Flowering", stageProgress: 64, moisture: 36, temperature: 33, diseaseRisk: 0.28, zone: "Zone 1", issue: "Soil moisture below target; pink bollworm traps show rising counts", sownOn: "2026-06-20", harvestBy: "2026-12-20", grid: { col: "9 / 13", row: "1 / 4" } },
+  { id: "p4", name: "Plot B1", crop: "Tomato", variety: "Arka Rakshak", areaAcres: 2.1, stage: "Fruiting", stageProgress: 72, moisture: 58, temperature: 27, diseaseRisk: 0.8, zone: "Zone 1", issue: "Early blight symptoms reported on lower leaves", sownOn: "2026-08-25", harvestBy: "2026-12-15", grid: { col: "5 / 9", row: "3 / 5" } },
   { id: "p5", name: "Plot B2", crop: "Wheat", variety: "HD 2967", areaAcres: 4.6, stage: "Germination", stageProgress: 12, moisture: 52, temperature: 24, diseaseRisk: 0.05, zone: "Zone 2", sownOn: "2026-11-05", harvestBy: "2027-03-25", grid: { col: "1 / 5", row: "4 / 7" } },
   { id: "p6", name: "Plot B3", crop: "Maize", variety: "NK 6240", areaAcres: 3.0, stage: "Grain filling", stageProgress: 81, moisture: 63, temperature: 28, diseaseRisk: 0.15, zone: "Zone 3", sownOn: "2026-07-15", harvestBy: "2026-11-30", grid: { col: "5 / 9", row: "5 / 7" } },
-  { id: "p7", name: "Plot C1", crop: "Chilli", variety: "Phule Jyoti", areaAcres: 1.6, stage: "Flowering", stageProgress: 55, moisture: 34, temperature: 32, diseaseRisk: 0.35, zone: "Zone 1", issue: "Drip line pressure drop; leaf curl seen on border rows", sownOn: "2026-08-10", harvestBy: "2027-01-20", grid: { col: "9 / 11", row: "4 / 7" } },
+  { id: "p7", name: "Plot C1", crop: "Chilli", variety: "Phule Jyoti", areaAcres: 1.6, stage: "Flowering", stageProgress: 55, moisture: 31, temperature: 32, diseaseRisk: 0.35, zone: "Zone 1", issue: "Drip line pressure drop; leaf curl seen on border rows", sownOn: "2026-08-10", harvestBy: "2027-01-20", grid: { col: "9 / 11", row: "4 / 7" } },
   { id: "p8", name: "Plot C2", crop: "Groundnut", variety: "TAG 24", areaAcres: 1.7, stage: "Maturity", stageProgress: 93, moisture: 47, temperature: 30, diseaseRisk: 0.1, zone: "Zone 1", sownOn: "2026-07-01", harvestBy: "2026-11-22", grid: { col: "11 / 13", row: "4 / 7" } },
 ];
 
@@ -161,9 +161,9 @@ export interface FarmAlert {
 }
 
 export const SAMPLE_ALERTS: FarmAlert[] = [
-  { id: "a1", severity: "critical", title: "Low soil moisture in Plot C1", detail: "Chilli plot at 34% — below the 50% minimum. Drip pressure dropped overnight.", time: "25 min ago", plotId: "p7" },
+  { id: "a1", severity: "critical", title: "Low soil moisture in Plot C1", detail: "Chilli plot at 31% — below the 50% minimum. Drip pressure dropped overnight.", time: "25 min ago", plotId: "p7" },
   { id: "a2", severity: "warning", title: "Early blight risk on tomato", detail: "Humid nights and leaf spots reported in Plot B1. Scout lower canopy.", time: "2 h ago", plotId: "p4" },
-  { id: "a3", severity: "warning", title: "Cotton moisture stress", detail: "Plot A3 at 41% during flowering — a sensitive stage.", time: "5 h ago", plotId: "p3" },
+  { id: "a3", severity: "warning", title: "Cotton moisture stress", detail: "Plot A3 at 36% during flowering — a sensitive stage.", time: "5 h ago", plotId: "p3" },
   { id: "a4", severity: "info", title: "Groundnut nearing harvest", detail: "Plot C2 at 93% of maturity. Plan harvest within ~7 days.", time: "Yesterday", plotId: "p8" },
 ];
 

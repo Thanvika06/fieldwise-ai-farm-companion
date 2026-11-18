@@ -18,8 +18,8 @@ import { cn } from "@/lib/utils";
 type Layer = "health" | "moisture" | "zones";
 
 export const Route = createFileRoute("/_platform/digital-twin")({
-  validateSearch: (search: Record<string, unknown>): { plot?: string } => ({
-    plot: typeof search.plot === "string" ? search.plot : undefined,
+  validateSearch: (search: Record<string, unknown>): { plot?: string | undefined } => ({
+    plot: typeof search["plot"] === "string" ? search["plot"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -63,7 +63,7 @@ function DigitalTwin() {
         actions={<DataBadge kind={simulation.enabled ? "simulated" : "sample"} label={simulation.enabled ? "Simulation running" : "Sample field data"} />}
       />
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
         <OverviewTile icon={Gauge} label="Farm-wide health" value={`${summary.avgHealth}/100`} valueClass={STATUS_TEXT[summary.status]} sub={HEALTH_LABEL[summary.status]} />
         <OverviewTile icon={Sprout} label="Plot status" value={`${summary.counts.healthy} / ${summary.counts.watch} / ${summary.counts.critical}`} sub="Healthy · Attention · Critical" />
         <OverviewTile icon={Droplets} label="Avg soil moisture" value={`${summary.avgMoisture}%`} sub="Across all plots" />
@@ -71,7 +71,7 @@ function DigitalTwin() {
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[1fr_380px]">
-        <section className="rounded-2xl border bg-card p-4 shadow-soft md:p-5">
+        <section className="self-start rounded-2xl border bg-card p-4 shadow-soft md:p-5">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <ToggleGroup type="single" value={layer} onValueChange={(v) => v && setLayer(v as Layer)} variant="outline" size="sm">
               <ToggleGroupItem value="health">Crop health</ToggleGroupItem>
@@ -87,8 +87,8 @@ function DigitalTwin() {
                 <PlotTile key={p.id} plot={p} layer={layer} selected={p.id === selectedId} onClick={() => select(p.id === selectedId ? undefined : p.id)} />
               ))}
             </div>
-            <span className="pointer-events-none absolute bottom-3 left-3 rounded-md bg-card/85 px-2 py-0.5 text-[10px] font-semibold text-muted-foreground">N ↑ · not to scale</span>
           </div>
+          <p className="mt-1.5 text-right text-[10px] font-semibold text-muted-foreground">N ↑ · schematic, not to scale</p>
 
           <div className="mt-4 grid gap-2 sm:grid-cols-3">
             {IRRIGATION_ZONES.map((z) => (
@@ -303,7 +303,7 @@ function SimSlider({ label, unit, min, max, value, onChange, absolute }: { label
         <Label className="text-sm">{label}</Label>
         <span className="rounded-md bg-background px-2 py-0.5 text-xs font-semibold tabular-nums">{!absolute && value > 0 ? "+" : ""}{value}{unit}</span>
       </div>
-      <Slider min={min} max={max} step={1} value={[value]} onValueChange={([v]) => onChange(v)} aria-label={label} />
+      <Slider min={min} max={max} step={1} value={[value]} onValueChange={([v]) => onChange(v ?? value)} aria-label={label} />
     </div>
   );
 }

@@ -11,10 +11,18 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlatformRouteImport } from './routes/_platform'
+import { Route as PlatformAnalyticsRouteImport } from './routes/_platform.analytics'
+import { Route as PlatformAssistantRouteImport } from './routes/_platform.assistant'
 import { Route as PlatformDashboardRouteImport } from './routes/_platform.dashboard'
 import { Route as PlatformDigitalTwinRouteImport } from './routes/_platform.digital-twin'
 import { Route as PlatformDiseaseDetectionRouteImport } from './routes/_platform.disease-detection'
+import { Route as PlatformRecommendationsRouteImport } from './routes/_platform.recommendations'
+import { Route as PlatformReportsRouteImport } from './routes/_platform.reports'
+import { Route as PlatformSettingsRouteImport } from './routes/_platform.settings'
+import { Route as PlatformWeatherRouteImport } from './routes/_platform.weather'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as PlatformAssistantIndexRouteImport } from './routes/_platform.assistant.index'
+import { Route as PlatformAssistantThreadIdRouteImport } from './routes/_platform.assistant.$threadId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,6 +32,16 @@ const IndexRoute = IndexRouteImport.update({
 const PlatformRoute = PlatformRouteImport.update({
   id: '/_platform',
   getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformAnalyticsRoute = PlatformAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformAssistantRoute = PlatformAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => PlatformRoute,
 } as any)
 const PlatformDashboardRoute = PlatformDashboardRouteImport.update({
   id: '/dashboard',
@@ -41,49 +59,135 @@ const PlatformDiseaseDetectionRoute =
     path: '/disease-detection',
     getParentRoute: () => PlatformRoute,
   } as any)
+const PlatformRecommendationsRoute = PlatformRecommendationsRouteImport.update({
+  id: '/recommendations',
+  path: '/recommendations',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformReportsRoute = PlatformReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformSettingsRoute = PlatformSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformWeatherRoute = PlatformWeatherRouteImport.update({
+  id: '/weather',
+  path: '/weather',
+  getParentRoute: () => PlatformRoute,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformAssistantIndexRoute = PlatformAssistantIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PlatformAssistantRoute,
+} as any)
+const PlatformAssistantThreadIdRoute =
+  PlatformAssistantThreadIdRouteImport.update({
+    id: '/$threadId',
+    path: '/$threadId',
+    getParentRoute: () => PlatformAssistantRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof PlatformAnalyticsRoute
+  '/assistant': typeof PlatformAssistantRouteWithChildren
   '/dashboard': typeof PlatformDashboardRoute
   '/digital-twin': typeof PlatformDigitalTwinRoute
   '/disease-detection': typeof PlatformDiseaseDetectionRoute
+  '/recommendations': typeof PlatformRecommendationsRoute
+  '/reports': typeof PlatformReportsRoute
+  '/settings': typeof PlatformSettingsRoute
+  '/weather': typeof PlatformWeatherRoute
   '/api/chat': typeof ApiChatRoute
+  '/assistant/$threadId': typeof PlatformAssistantThreadIdRoute
+  '/assistant/': typeof PlatformAssistantIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof PlatformAnalyticsRoute
   '/dashboard': typeof PlatformDashboardRoute
   '/digital-twin': typeof PlatformDigitalTwinRoute
   '/disease-detection': typeof PlatformDiseaseDetectionRoute
+  '/recommendations': typeof PlatformRecommendationsRoute
+  '/reports': typeof PlatformReportsRoute
+  '/settings': typeof PlatformSettingsRoute
+  '/weather': typeof PlatformWeatherRoute
   '/api/chat': typeof ApiChatRoute
+  '/assistant/$threadId': typeof PlatformAssistantThreadIdRoute
+  '/assistant': typeof PlatformAssistantIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_platform': typeof PlatformRouteWithChildren
+  '/_platform/analytics': typeof PlatformAnalyticsRoute
+  '/_platform/assistant': typeof PlatformAssistantRouteWithChildren
   '/_platform/dashboard': typeof PlatformDashboardRoute
   '/_platform/digital-twin': typeof PlatformDigitalTwinRoute
   '/_platform/disease-detection': typeof PlatformDiseaseDetectionRoute
+  '/_platform/recommendations': typeof PlatformRecommendationsRoute
+  '/_platform/reports': typeof PlatformReportsRoute
+  '/_platform/settings': typeof PlatformSettingsRoute
+  '/_platform/weather': typeof PlatformWeatherRoute
   '/api/chat': typeof ApiChatRoute
+  '/_platform/assistant/$threadId': typeof PlatformAssistantThreadIdRoute
+  '/_platform/assistant/': typeof PlatformAssistantIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/dashboard' | '/digital-twin' | '/disease-detection' | '/api/chat'
+    | '/'
+    | '/analytics'
+    | '/assistant'
+    | '/dashboard'
+    | '/digital-twin'
+    | '/disease-detection'
+    | '/recommendations'
+    | '/reports'
+    | '/settings'
+    | '/weather'
+    | '/api/chat'
+    | '/assistant/$threadId'
+    | '/assistant/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/digital-twin' | '/disease-detection' | '/api/chat'
+  to:
+    | '/'
+    | '/analytics'
+    | '/dashboard'
+    | '/digital-twin'
+    | '/disease-detection'
+    | '/recommendations'
+    | '/reports'
+    | '/settings'
+    | '/weather'
+    | '/api/chat'
+    | '/assistant/$threadId'
+    | '/assistant'
   id:
     | '__root__'
     | '/'
     | '/_platform'
+    | '/_platform/analytics'
+    | '/_platform/assistant'
     | '/_platform/dashboard'
     | '/_platform/digital-twin'
     | '/_platform/disease-detection'
+    | '/_platform/recommendations'
+    | '/_platform/reports'
+    | '/_platform/settings'
+    | '/_platform/weather'
     | '/api/chat'
+    | '/_platform/assistant/$threadId'
+    | '/_platform/assistant/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -108,6 +212,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_platform/analytics': {
+      id: '/_platform/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof PlatformAnalyticsRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/assistant': {
+      id: '/_platform/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof PlatformAssistantRouteImport
+      parentRoute: typeof PlatformRoute
+    }
     '/_platform/dashboard': {
       id: '/_platform/dashboard'
       path: '/dashboard'
@@ -129,6 +247,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformDiseaseDetectionRouteImport
       parentRoute: typeof PlatformRoute
     }
+    '/_platform/recommendations': {
+      id: '/_platform/recommendations'
+      path: '/recommendations'
+      fullPath: '/recommendations'
+      preLoaderRoute: typeof PlatformRecommendationsRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/reports': {
+      id: '/_platform/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof PlatformReportsRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/settings': {
+      id: '/_platform/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof PlatformSettingsRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/weather': {
+      id: '/_platform/weather'
+      path: '/weather'
+      fullPath: '/weather'
+      preLoaderRoute: typeof PlatformWeatherRouteImport
+      parentRoute: typeof PlatformRoute
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -136,19 +282,58 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_platform/assistant/': {
+      id: '/_platform/assistant/'
+      path: '/'
+      fullPath: '/assistant/'
+      preLoaderRoute: typeof PlatformAssistantIndexRouteImport
+      parentRoute: typeof PlatformAssistantRoute
+    }
+    '/_platform/assistant/$threadId': {
+      id: '/_platform/assistant/$threadId'
+      path: '/$threadId'
+      fullPath: '/assistant/$threadId'
+      preLoaderRoute: typeof PlatformAssistantThreadIdRouteImport
+      parentRoute: typeof PlatformAssistantRoute
+    }
   }
 }
 
+interface PlatformAssistantRouteChildren {
+  PlatformAssistantThreadIdRoute: typeof PlatformAssistantThreadIdRoute
+  PlatformAssistantIndexRoute: typeof PlatformAssistantIndexRoute
+}
+
+const PlatformAssistantRouteChildren: PlatformAssistantRouteChildren = {
+  PlatformAssistantThreadIdRoute: PlatformAssistantThreadIdRoute,
+  PlatformAssistantIndexRoute: PlatformAssistantIndexRoute,
+}
+
+const PlatformAssistantRouteWithChildren =
+  PlatformAssistantRoute._addFileChildren(PlatformAssistantRouteChildren)
+
 interface PlatformRouteChildren {
+  PlatformAnalyticsRoute: typeof PlatformAnalyticsRoute
+  PlatformAssistantRoute: typeof PlatformAssistantRouteWithChildren
   PlatformDashboardRoute: typeof PlatformDashboardRoute
   PlatformDigitalTwinRoute: typeof PlatformDigitalTwinRoute
   PlatformDiseaseDetectionRoute: typeof PlatformDiseaseDetectionRoute
+  PlatformRecommendationsRoute: typeof PlatformRecommendationsRoute
+  PlatformReportsRoute: typeof PlatformReportsRoute
+  PlatformSettingsRoute: typeof PlatformSettingsRoute
+  PlatformWeatherRoute: typeof PlatformWeatherRoute
 }
 
 const PlatformRouteChildren: PlatformRouteChildren = {
+  PlatformAnalyticsRoute: PlatformAnalyticsRoute,
+  PlatformAssistantRoute: PlatformAssistantRouteWithChildren,
   PlatformDashboardRoute: PlatformDashboardRoute,
   PlatformDigitalTwinRoute: PlatformDigitalTwinRoute,
   PlatformDiseaseDetectionRoute: PlatformDiseaseDetectionRoute,
+  PlatformRecommendationsRoute: PlatformRecommendationsRoute,
+  PlatformReportsRoute: PlatformReportsRoute,
+  PlatformSettingsRoute: PlatformSettingsRoute,
+  PlatformWeatherRoute: PlatformWeatherRoute,
 }
 
 const PlatformRouteWithChildren = PlatformRoute._addFileChildren(

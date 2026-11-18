@@ -360,7 +360,7 @@ function AnalyzingState() {
   );
 }
 
-function ResultCard({ outcome, image }: { outcome: Outcome; image?: string }) {
+function ResultCard({ outcome, image }: { outcome: Outcome; image?: string | undefined }) {
   const r = outcome.result;
   const sev = SEVERITY[r.severity];
   const unusable = !r.isPlant || r.imageQuality === "poor";

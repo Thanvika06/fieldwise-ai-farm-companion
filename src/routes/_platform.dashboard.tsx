@@ -42,7 +42,7 @@ function Dashboard() {
   const weather = useQuery(weatherQuery(settings.weatherLocationId));
   const rain24 = weather.data?.daily[0]?.rainMm ?? 0;
   const rainProb = weather.data?.daily[0]?.rainProbability ?? 0;
-  const lastMonth = DISEASE_HISTORY[DISEASE_HISTORY.length - 1];
+  const lastMonth = DISEASE_HISTORY[DISEASE_HISTORY.length - 1] ?? { detected: 0, resolved: 0 };
   const running = IRRIGATION_ZONES.filter((z) => z.status === "Running").length;
 
   const recs = plots
@@ -91,7 +91,7 @@ function Dashboard() {
           footer={weather.data && <DataBadge kind={weather.data.source === "live" ? "live" : "demo"} className="self-start" />}
         />
         <StatCard to="/weather" icon={Droplets} tone="primary" label="Irrigation status" value={`${running}/${IRRIGATION_ZONES.length} zones`} sub={`Running now · avg soil moisture ${summary.avgMoisture}%`} />
-        <StatCard to="/disease-detection" icon={Bug} tone="danger" label="Disease detections" value={`${lastMonth.detected} this month`} sub={`${lastMonth.detected - lastMonth.resolved} open · ${scansThisSession} scans this session`} />
+        <StatCard to="/disease-detection" icon={Bug} tone="danger" label="Disease detections" value={`${lastMonth.detected} cases`} sub={`This month · ${lastMonth.detected - lastMonth.resolved} open · ${scansThisSession} scans today`} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">

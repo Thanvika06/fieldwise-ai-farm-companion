@@ -63,7 +63,8 @@ export function createThread(): ChatThread {
 /** Idempotent: returns the most recent thread, creating one only when none exist. */
 export function ensureThread(): ChatThread {
   const existing = read();
-  if (existing.length > 0) return [...existing].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+  const latest = [...existing].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+  if (latest) return latest;
   return createThread();
 }
 

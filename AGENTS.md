@@ -28,3 +28,14 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- AI calls (Gemini via `@lovable.dev/ai-gateway`) live only in `src/lib/ai.server.ts` / `src/lib/chat.server.ts`, exposed through `src/lib/ai.functions.ts` server functions and the `/api/chat` streaming route — keeps keys and prompts off the client.
+- AI server functions return `{ ok: false, code, message }` instead of throwing — the UI shows friendly errors and offers clearly labelled demo results.
+- Every number shown carries a source badge (`DataBadge`: sample / live / demo / AI / simulated) — the app must never present demo values as real readings.
+- Farm field data is static sample data in `src/lib/farm-data.ts`; health and irrigation rules are pure functions in `src/lib/farm-logic.ts` with tests in `src/test/farm-logic.test.ts` — keep rules testable and out of components.
+- Shared farm state (simulation, settings, alerts) lives in `FarmProvider` (`src/lib/farm-store.tsx`) so the digital-twin simulation reflects across dashboard, analytics and reports.
+- App pages sit under the pathless `_platform` layout (sidebar + top bar); the landing page `/` stays outside it.
+- AgriBot conversations are stored in sessionStorage per thread (`src/lib/chat-threads.ts`) with one route per thread (`/assistant/$threadId`) — the user chose multiple, session-only conversations.
+- Weather comes from Open-Meteo (no key) via `getWeather` server function, falling back to labelled demo weather.

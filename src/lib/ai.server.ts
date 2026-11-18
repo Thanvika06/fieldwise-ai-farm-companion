@@ -25,7 +25,7 @@ export async function collectGeminiText(messages: GeminiMessages, opts: { json?:
       messages,
       ...(opts.json ? { response_format: { type: "json_object" as const } } : {}),
     },
-    { signal: opts.signal },
+    opts.signal ? { signal: opts.signal } : {},
   );
   let text = "";
   for await (const event of stream) {

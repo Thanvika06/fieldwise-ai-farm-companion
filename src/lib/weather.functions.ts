@@ -65,11 +65,11 @@ export const getWeather = createServerFn({ method: "POST" })
           },
           daily: daily.time.map((date, i) => ({
             date,
-            tMax: Math.round(daily.temperature_2m_max[i]),
-            tMin: Math.round(daily.temperature_2m_min[i]),
+            tMax: Math.round(daily.temperature_2m_max[i] ?? 0),
+            tMin: Math.round(daily.temperature_2m_min[i] ?? 0),
             rainMm: Math.round((daily.precipitation_sum[i] ?? 0) * 10) / 10,
             rainProbability: daily.precipitation_probability_max[i] ?? 0,
-            weatherCode: daily.weather_code[i],
+            weatherCode: daily.weather_code[i] ?? 0,
           })),
         },
       };

@@ -49,13 +49,13 @@ export interface HealthInput {
   diseaseRisk: number;
 }
 
-/** Weighted crop health score 0–100: moisture 45%, temperature 35%, disease pressure 20%. */
+/** Weighted crop health score 0–100: moisture 40%, temperature 25%, disease pressure 35%. */
 export function computePlotHealth({ crop, moisture, temperature, diseaseRisk }: HealthInput): number {
   const profile = getCropProfile(crop);
-  const moistureScore = rangeScore(moisture, profile.idealMoisture, 25);
-  const tempScore = rangeScore(temperature, profile.idealTemp, 10);
+  const moistureScore = rangeScore(moisture, profile.idealMoisture, 15);
+  const tempScore = rangeScore(temperature, profile.idealTemp, 8);
   const diseaseScore = 100 - clamp(diseaseRisk, 0, 1) * 100;
-  return Math.round(moistureScore * 0.45 + tempScore * 0.35 + diseaseScore * 0.2);
+  return Math.round(moistureScore * 0.4 + tempScore * 0.25 + diseaseScore * 0.35);
 }
 
 export type HealthStatus = "healthy" | "watch" | "critical";

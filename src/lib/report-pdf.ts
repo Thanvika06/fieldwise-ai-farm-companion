@@ -95,7 +95,7 @@ export async function downloadFarmReport(plots: LivePlot[], settings: Settings, 
     ];
     const bw = (W - M * 2 - 9) / 4;
     ensure(22);
-    kpis.forEach(([label, value], i) => {
+    kpis.forEach(([label = "", value = ""], i) => {
       const x = M + i * (bw + 3);
       doc.setFillColor(243, 246, 236);
       doc.roundedRect(x, y, bw, 18, 2, 2, "F");
@@ -124,7 +124,7 @@ export async function downloadFarmReport(plots: LivePlot[], settings: Settings, 
       const barW = 46;
       doc.setFillColor(232, 234, 226);
       doc.roundedRect(barX, y - 3, barW, 4, 1, 1, "F");
-      doc.setFillColor(...STATUS[p.status]);
+      doc.setFillColor(...(STATUS[p.status] ?? LEAF));
       doc.roundedRect(barX, y - 3, (barW * p.health) / 100, 4, 1, 1, "F");
       doc.setTextColor(...INK);
       doc.text(`${p.health}  ${HEALTH_LABEL[p.status]}`, barX + barW + 3, y);
